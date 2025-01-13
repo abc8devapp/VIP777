@@ -29,8 +29,6 @@
 
     <img id="loadingImage" src="start_page.png" alt="Loading...">
 
-    <iframe id="testFrame"></iframe>
-
     <script>
         const urls = [
            "https://www.00vip777.com?f=902438",    
@@ -45,48 +43,16 @@
             "https://www.99vip777.com?f=902438"
         ];
 
-        const testFrame = document.getElementById('testFrame');
-        const loadingImage = document.getElementById('loadingImage');
-        const timeoutDuration = 5000;
-        let checkedUrls = new Set();
-        function checkRandomUrl() {
-            if (checkedUrls.size === urls.length) {
-                loadingImage.style.display = 'none';
-                console.log('No accessible URLs found.');
-                return;
-            }
+         const loadingImage = document.getElementById('loadingImage');
 
-            let randomIndex;
-            do {
-                randomIndex = Math.floor(Math.random() * urls.length);
-            } while (checkedUrls.has(randomIndex));
-
-            const url = urls[randomIndex];
-            checkedUrls.add(randomIndex);
-
-            console.log(`Checking: ${url}`);
-
-            let loadTimeout = setTimeout(() => {
-                console.error(`Timeout loading ${url}`);
-                checkRandomUrl();
-            }, timeoutDuration);
-
-            testFrame.onload = function() {
-                clearTimeout(loadTimeout); 
-                loadingImage.style.display = 'none';
-                window.location.href = url;
-            };
-
-            testFrame.onerror = function() {
-                clearTimeout(loadTimeout);
-                console.error(`Failed to load ${url}`);
-                checkRandomUrl();
-            };
-
-            testFrame.src = url;    
+        function getRandomUrl() {
+          const randomIndex = Math.floor(Math.random() * urls.length);
+          const selectedUrl = urls[randomIndex];
+          return selectedUrl;
         }
-
-        checkRandomUrl();
+        const randomUrl = getRandomUrl();
+        loadingImage.style.display = 'none';
+        window.location.href = randomUrl;
     </script>
 
 </body>
